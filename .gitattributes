@@ -1,0 +1,2 @@
+.gitattributes linguist-vendored
+*.tex linguist-language=R

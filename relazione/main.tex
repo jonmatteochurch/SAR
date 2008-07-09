@@ -1,0 +1,200 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Main file for DALILA VESCOVI PhD thesis
+%
+%
+\documentclass[envcountsame,envcountchap]{PhD_thesis_UNIPG}
+
+\newif\ifpdf                % allows running either pdflatex or latex
+\ifx\pdfoutput\undefined
+    \pdffalse
+\else
+    \pdfoutput=1
+    \pdftrue
+\fi
+
+%----- 12pt ----------
+\textwidth 12.5cm
+\textheight 20cm
+\evensidemargin 5mm
+\oddsidemargin 8mm
+\hoffset 1.4cm
+
+\ifpdf                  % provide eps images with LaTeX, pdf images with pdfLaTeX
+\usepackage[pdftex]{graphicx}
+\pdfcompresslevel=9
+% graphics macros ----------------------------
+\def\placefig#1#2{
+\begin{center}
+\includegraphics[width=#2]{#1}
+\end{center} }
+\def\placepdf#1#2{
+\placefig{#1}{#2} } \DeclareGraphicsExtensions{.jpg,.pdf,.png,.mps}
+% end of graphics macros -------------------------
+\else
+\usepackage{graphicx}
+\fi
+\DeclareGraphicsExtensions{.pdf,.eps,.jpg}
+
+\usepackage{makeidx}                % allows index generation (otherwise comment)
+\usepackage{amssymb,amsmath}
+\usepackage{subeqnarray}
+%\usepackage{cite}
+\usepackage[colorlinks=false]{hyperref}
+\usepackage[italian]{babel}         % WARNING: erase italian if use package xy
+\usepackage{multicol}               % used for the two-column index
+\usepackage[bottom]{footmisc}       % places footnotes at page bottom
+\usepackage{natbib}
+% etc.
+% see the list of further useful packages
+% in the Reference Guide, Sects. 2.3, 3.1-3.3
+
+%\makeindex                     % used for the subject index
+                                % please use the style svind.ist with
+                                % your makeindex program
+
+%%%%%%%%%%%%%%%%% some useful abbreviations for commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% (or: make your own macros) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\newcommand{\vsp}{\vspace{.5cm}}
+\newcommand{\hsp}{\hspace{.5 cm}}
+\newcommand{\rowsp}{\rule[-.5cm]{0cm}{1cm}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\neht}{\Leftarrow}
+\newcommand{\then}{\Rightarrow}
+\newcommand{\ioif}{\Leftrightarrow}
+\newcommand{\é}{\'{e}}
+\newcommand{\à}{\`{a}}
+\newcommand{\è}{\`{e}}
+\newcommand{\ì}{\`{\i}}
+\newcommand{\ò}{\`{o}}
+\newcommand{\ù}{\`{u}}
+\newcommand{\EE}{\`{E}}
+\newcommand{\mbf}[1]{\mbox{\boldmath ${#1}$}}
+\newcommand{\R}{{\sf R\hspace*{-0.9ex}\rule{0.15ex}{1.5ex}\hspace*{0.9ex}}}
+\newcommand{\N}{{\sf N\hspace*{-1.0ex}\rule{0.15ex}{1.3ex}\hspace*{1.0ex}}}
+\newcommand{\Q}{{\sf Q\hspace*{-1.1ex}\rule{0.15ex}{1.5ex}\hspace*{1.1ex}}}
+\newcommand{\C}{{\sf C\hspace*{-0.9ex}\rule{0.15ex}{1.3ex}\hspace*{0.9ex}}}
+
+\newcommand{\Comment}[1]{}
+
+%\newcommand{\refsec}{\S~}
+
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\jump}[1]{\left[\!\left[ #1\right]\!\right]}
+\newcommand{\grad}{\operatorname{grad}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\dir}{\operatorname{dir}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\sym}{\operatorname{sym}}
+\newcommand{\skw}{\operatorname{skw}}
+\newcommand{\dev}{\operatorname{dev}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\Masin}{Ma\v{s}\'\i{}n }
+\newcommand{\virg}[1]{``#1''}
+\newcommand{\diver}{\operatorname{div}}
+\newcommand{\tens}[1]{\boldsymbol{#1}}
+\newcommand{\Figura}{Fig.~}
+\newcommand{\Tabella}{Tab.~}
+\newcommand{\Capitolo}{Cap.~}
+\newcommand{\Appendice}{App.~}
+\newcommand{\Eq}{eq.~}
+
+
+
+\newcommand{\bZ}{\mathbf{Z}}
+\newcommand{\bb}{\pmb{\beta} }
+\newcommand{\beps}{\pmb{\varepsilon} }
+\newcommand{\bhb}{\hat{\pmb{\beta} }}
+\newcommand{\bhY}{\hat{\mathbf{ Y}}}
+\newcommand{\bheps}{\hat{\pmb{\varepsilon}} }
+\newcommand{\bW}{\mathbf{W}}
+\newcommand{\be}{\mathbf{e}}
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\bB}{\mathbf{B}}
+\newcommand{\cY}{\pmb{\check{Y}}}
+\newcommand{\cb}{\pmb{\check{\beta}}}
+\newcommand{\ce}{\pmb{\check{e}}}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%% Title page %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\begin{document}
+\author{Jon Matteo Church matr. 709752 \\
+Dalila Vescovi matr. 682063\\}
+\title{SAR: autoregressione simultanea}
+\date{\today}
+\maketitle
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Back title page %%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\newpage\newpage
+\setcounter{page}{0}
+\renewcommand{\thepage}{\roman{page}}
+%\include{summary}   % optional - somebody want to include an abstract here, comment otherwise
+
+%\include{acknowledgments_top}   % optional - somebody prefer to put acknowledgments here, comment otherwise
+%
+\frontmatter
+\tableofcontents
+%\include{opening}      % opening
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% MAIN BODY %%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\setcounter{page}{1}
+\renewcommand{\thepage}{\arabic{page}}
+\mainmatter
+
+\include{capitolo_1}  % introduzione
+
+
+\include{capitolo_2}
+
+\include{capitolo_3}
+
+\include{capitolo_4}
+
+\backmatter
+\setcounter{page}{0}
+\renewcommand{\thepage}{\Roman{page}}
+\appendix
+\include{appendice_A}
+
+\begin{thebibliography}{99}
+
+
+    \bibitem{1}Pace R. K. Barry R.
+                       \emph{Sparse spatial autoregressions.}
+                       Statistics \& Probability, Letters 33, 1997, 291-197.
+
+    \bibitem{2}http://www.spatialanalysisonline.com/output/html/Spatialautoregressivemodelling.html.
+    \bibitem{3}Troy A.
+                   \emph{Spatial autoregressive methods.}
+                    University of Vermont, pubblicato sul sito:
+                    http://www.uvm.edu/envnr/gradgis/advanced.
+    \bibitem{4}http://portal.wsiz.rzeszuw.pl/plik.aspx?id=3644.
+
+
+\end{thebibliography}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Bibliography %%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+%\bibliographystyle{plain}
+%\bibliographystyle{elsart-harv}
+%\bibliography{daly}   % select you BibTex file or write your references HERE
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CLOSING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\include{acknowledgments_bottom} % optional - uncomment if you want to radically apply to the volume format
+%\include{sommario}                 % summary of the thesis (in Italian)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INDEX (optional) %%%%%%%%%%%%%%%%%%%%%
+%
+%\printindex     % for those who \makeindex
+%
+\end{document}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END OF THE THESIS %%%%%%%%%%%%%%%%%%%%%
+%

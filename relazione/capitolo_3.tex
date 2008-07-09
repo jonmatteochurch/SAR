@@ -1,0 +1,365 @@
+\chapter{Esempio su data set reale}\label{cap3}
+
+In questo capitolo vedremo l'applicazione del modello di regressione
+lineare (OLS) e di autoregrassione simultanea (SAR) su un data set
+reale caratterizzato da distribuzione spaziale. Nel
+Par.~\ref{sect3.1} vengono illustrati data set e modello, nel
+Par.~\ref{sect3.2} sono riporati i risultati ottenuti con le 2
+diverse analisi e nel Par.~\ref{sect3.3} tali risultati vengono
+rappresentati su grafici comodi per la visualizzazione del
+confronto, infine nel Par.~\ref{sect3.4} vengono utilizzati i
+parametri stimati per ottere previsioni su un secondo data set, del
+quale sono noti i valori della variabile risposta.
+
+\section{Data set reale}\label{sect3.1}
+
+Il data set a nostra disposizione contiene informazioni relative a
+$20640$ individui, che rappresentano tutti i condomini della
+California tratti da un censimento del $1990$. Per ogni condominio
+si hanno a disposizione le seguenti osservazioni: numero di
+occupanti, rendita, et\à, numero totale di vani, numero totale di
+camere, numero di proprietari, valore,latitudine e longitudine.\\
+Le variabili di interesse sono:
+\begin{itemize}
+\item[] variabile risposta $Y = \ln(\mbox{valore di un condominio})$
+\item[] $X_1=  \mbox{rendita}$
+\item[] $X_2= (\mbox{rendita})^2$
+\item[] $X_3= (\mbox{rendita})^3$
+\item[] $X_4= \ln(\mbox{et\à})$
+\item[] $X_5= \ln(\mbox{totale vani / numero occupanti})$
+\item[] $X_6= \ln(\mbox{totale camere / numero occupanti})$
+\item[] $X_7= \ln(\mbox{numero occupanti / numero proprietari})$
+\item[] $X_8= \ln(\mbox{numero proprietari})$
+\end{itemize}
+
+Il modello che si vuole analizzare \è quindi:
+
+$$ Y = \beta_0 +
+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_4X_4+\beta_5X_5+\beta_6X_6+\beta_7X_7+\beta_8X_8$$\\
+
+Le variabili latitudine e longitudine verranno utilizzate per
+costruire la matrice dei pesi $\bW$ nel modello SAR.
+
+\section{Coefficienti stimati per i 2 modelli}\label{sect3.2}
+
+
+Per motivi di costo computazionale, si \è scelto di ridurre
+notevolmente il campione a sole $n=1000$ aree di interesse. \\
+Si \è fissato inoltre a $m=4$ il numero di elementi non nulli su
+ogni riga di $\bW$. In questo modo si ritiene cio\è che l'errore
+relativo ad ogni osservazione dipenda solo da altre $4$
+osservazioni.
+
+La Tabella \ref{tab:table} contiene i valori stimati dei
+coefficienti $\bb$ per i $2$ modelli OLS e SAR, i valori di
+$S^2=\frac{\beps'\beps}{n-r-1}$ come stimatore di $\sigma^2$ e
+quelli dell'indice di determinazione $R^2 =
+1-\frac{\beps'\beps}{\sum_{i=1}^{n}{(y_i-\bar{y}_i)}^2}$.\\
+
+\begin{table}[htbp]
+\caption{Stime con OLS e SAR}
+ \label{tab:table}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+ \hline
+\textbf{} & \textbf{OLS} & \textbf{SAR}\\
+\hline
+\textbf{$\beta_0$} & $11.439828159$ & $11.565929281$ \\
+\hline
+\textbf{$\beta_1$} & $0.119867563$ & $-0.035349870$ \\
+\hline
+\textbf{$\beta_2$} & $0.022258423$ & $0.025167169$ \\
+\hline
+\textbf{$\beta_3$} & $-0.001689108$ & $-0.001400044$ \\
+\hline
+\textbf{$\beta_4$} & $0.062130790$ & $-0.010339510$ \\
+\hline
+\textbf{$\beta_5$} & $-0.148146463$ & $0.231575036$ \\
+\hline
+\textbf{$\beta_6$} & $-0.038564672$ & $-0.255060934$ \\
+\hline
+\textbf{$\beta_7$} & $-0.638793568$ & $-0.234159068$ \\
+\hline
+\textbf{$\beta_8$} & $0.083856199$ & $0.049893059$ \\
+\hline
+\textbf{$\lambda$}&   & $0.71442$ \\
+\hline
+\textbf{$\sigma^2$}& $0.06612056$ & $0.03514641$ \\
+\hline
+\textbf{$R^2$}     & $0.6448312$ & $0.8112099$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{table}
+
+Si pu\ò notare come il coefficiente di determinazione della SAR sia
+molto migliore di quello di OLS, il che \è significativo di come il
+modello SAR sia pi\ù adeguato a rappresentare il campione.
+
+\section{Rappresentazione grafica dei risultati}\label{sect3.3}
+
+Poich\é i regressori sono $8$, la rappresentazione completa del
+campione necessita di uno spazio a $9$ dimensioni. Si pu\ò pensare
+allora di proiettare i dati su $8$ piani $X_i \times Y$, in modo da
+vedere come la variabile risposta vari lungo ogni regressore.\\
+Se alle $Y_i$ note si aggiungono i valori fittati $\hat{Y}_i$ per
+OLS e $\check{Y}_i$ per SAR, si pu\ò vedere quanto i valori predetti
+siano prossimi o meno a quelli noti. In Figura 3.1 sono riportati i
+valori della variabile risposta (in rosso) e dei valori fittati in
+corrispondenza delle osservazioni delle variabili $X_1$ e $X_4$, i
+punti verdi corrispondono al modello OLS, quelli blu al SAR. Anche
+se \è evidente come i valori fittati ottenuti con la SAR siano pi\ù
+prossimi ai valori reali di quelli ottenuti con la regressione
+lineare, queste rappresentazioni non sono molto
+efficaci.\\
+
+
+
+\begin{figure} [h] {\setlength{\fboxsep}{2mm}
+\fbox{\parbox{120mm}{%
+\begin{center}
+\placefig{fig_cap3/fig1}{11cm}
+\end{center}
+
+}}
+\begin{center} \caption{Proiezioni su $X_1 \times Y$ e $X_4 \times Y$ di $Y$, $\hat{Y}$, $\check{Y}$ .}
+\end{center} \label{fig3.1} }
+\end{figure}
+
+Abbiamo gi\à detto al Par.~\ref{sect2.1} che le componenti di $\bhY$
+ottenute con OLS giacciono su l'iperpiano affine di
+$\mathbb{R}^{r+1}$ di equazione
+
+$$Y = \hat{\beta}_0 +\hat{\beta}_1 X_1 +\ldots+\hat{\beta}_r X_r$$
+
+Sarebbe quindi interessante poter visualizzare nei piani i valori
+fittati in modo da rappresentarne l'allineamento. A tal fine si pu\ò
+pensare di proiettare i dati sul generico piano $X_i \times Y$,
+invece che ortogonalmente al piano stesso, parallelamente
+all'iperpiano
+generato dalle colonne di $\bZ$.\\
+
+Consideriamo per semplicit\à il caso $\mathbb{R}^3$ in modo da poter
+visualizzare lo spazio. In questo caso allora l'iperpiano OLS ha
+equazione:
+
+$$Y = \hat{\beta}_0 + \hat{\beta}_1 X_1 +\hat{\beta}_2 X_2$$
+ed \è generato dai vettori ortogonali $(1,0,-\hat{\beta}_1), (0,
+1,-\hat{\beta}_2)$ , quindi se si considera un generico punto $(
+x_{1},x_{2},y)$, la sua proiezione su $X_1 \times Y$ parallelamente
+a questo piano ha per coordinate $(x_{1},y-\hat{\beta}_2 x_{2})$,
+mentre quella su $X_2 \times Y$ è $(x_{2}, y-\hat{\beta}_1 x_1)$. La
+figura 3.2 chiarisce il processo.
+
+\begin{figure} [h] {\setlength{\fboxsep}{2mm}
+\fbox{\parbox{120mm}{%
+\begin{center}
+\placefig{fig_cap3/fig2}{11cm}
+\end{center}
+
+}}
+\begin{center} \caption{Generico punto proiettato ortogonalmente al piani $X_1 \times Y$ e $X_2 \times Y$
+ e poi parallelamente al piano generato con OLS.}
+\end{center} \label{fig3.2} }
+\end{figure}
+
+Generalizzando al caso $\mathbb{R}^{r+1}$, la proiezione sul
+generico piano $X_i \times Y$ parallelamente all'iperpiano OLS $Y =
+\hat{\beta}_0+\hat{\beta}_1 X_1+\ldots+\hat{\beta}_r X_r$ del punto
+$$(\mathbf{x},y)=(x_{1},x_{2},\ldots,x_{r},y)$$
+ha per coordinate
+$$(x_{i},y - \mathbf{x} \cdot \bhb^{*})$$
+dove $\bhb^{*}$ \è uguale al vettore $\bhb$ tranne che per la
+$i$-esima coordinata che \è nulla.
+
+Proiettiamo in questo modo sia i valori reali assunti dalla
+variabile risposta che quelli fittati ottenuti dai 2 modelli.
+Ovviamente le proiezioni dei $\bhY$ sono allineate lungo una retta.
+In figura 3.3 e 3.4 sono riportati i grafici delle proiezioni su
+tutti i piani, in rosso le proiezioni dei dati reali, in verde
+quelle dei valori ottenuti con OLS e in blu quelli di SAR.
+
+
+Questi grafici mettono in evidenza come i valori fittati stimati da
+SAR sono molto pi\ù simili a quelli reali che non quelli trovati da
+OLS.
+\newpage
+
+\begin{center}
+\begin{figure} [h] {\setlength{\fboxsep}{2mm}
+\fbox{\parbox{120mm}{%
+
+\placefig{fig_cap3/fig3}{7.2cm}
+
+
+}}
+
+ \caption{Proiezione dei dati reali e fittati con i 2 modelli parallelamente all'iperpiano OLS}
+ \label{fig3.3} }
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure} [h] {\setlength{\fboxsep}{2mm}
+\fbox{\parbox{120mm}{%
+
+\placefig{fig_cap3/fig4}{7.2cm}
+
+
+}}
+ \caption{Proiezione dei dati reali e fittati con i 2 modelli parallelamente all'iperpiano OLS}
+ \label{fig3.4} }
+
+\end{figure}
+\end{center}
+
+\newpage
+
+\section{Previsioni}\label{sect3.4}
+
+Inizialmente si \è specificato che si dispone in realt\à di molte
+pi\ù osservazioni di quante utilizzate per le analisi. Si \è scelto
+pertanto di utilizzare $100$ delle osservazioni restanti per
+svolgere delle analisi di previsione e poi confrontare i valori
+fittati ottenuti con quelli reali.\\
+Sia $\mathbf{Z}^0 =
+[\mathbb{I}_{n_{0}}|\mathbf{X}_{1}^{0}|\ldots|\mathbf{X}_{r}^{0}]$
+il nuovo campione di osservazioni sui regressori composto da $n_0 =
+100$ individui.
+
+I valori fittati della variabile risposta ottenuti con OLS sono
+dunque:
+
+$$\bhY^0 =  \bhb \mathbf{Z}^0$$
+
+Per quanto riguarda la SAR invece:
+
+$$\cY^0 =  \cb \mathbf{Z}^0 + \check{\lambda}\bW(\bY^0 - \cb \mathbf{Z}^0)$$
+
+Ora per\ò i valori $\mathbf{Y}^0$ non sono noti, ma sono proprio le
+quantit\à da stimare. L'unica stima che si pu\ò ottenere allora \è:
+
+$$\cY^0 =  \cb \mathbf{Z}^0 $$
+
+Ma come prevedibile i valori fittati cos\ì ottenuti sono molto
+distanti da quelli reali, e quindi le previsioni ottenute con il
+metodo SAR sono abbastanza deludenti, sicuramente peggiori di quelle
+ottenute con OLS.
+
+Si pu\ò ovviare per\ò a questo problema pensando di utilizzare
+l'eventuale correlazione tra le osservazioni del nuovo campione di
+dati $\bZ^0 $ e quelle del campione originale $\bZ$ sulle quali \è
+stata svolta la regressione.
+
+In effetti abbiamo visto al Par.~\ref{sect2.4} che per ogni
+osservazione $i$-esima, solo $m$ delle altre osservazioni
+influenzano la stima di $\check{Y}_i$, e di certo non se stessa per
+la propriet\à di non autopredittibilit\à della matrice $\bW$.
+Possiamo supporre allora che le $m$ osservazioni da cui dipende il
+generico individuo del nuovo campione non appartengano a tale nuovo
+campione, ma al campione iniziale, del quale sono noti i valori
+reali della variabile risposta.
+
+Il nuovo modello di previsione pu\ò allora essere espresso come:
+
+$$\cY^{0} =  \cb \mathbf{Z}^0 + \check{\lambda}\bW^{0}(\bY - \cb \mathbf{Z})$$
+
+$\bW^0 \in \mathbb{R}^{n_0\times n_0}$ \è la nuova matrice dei pesi,
+ed \è tale che $w_{ij}^0 \neq 0$ se il $j$-esimo individuo di $\bZ$
+\è uno degli $m$ pi\ù vicini all'$i$-esimo individuo di $\bZ^0$.
+
+ Questo modello di previsione ha senso se gli
+individui del nuovo campione sono correlati con quelli del campione
+iniziale, ovvero se ci sono almeno $m$ punti di $\bZ$ che sono
+abbastanza vicini in termini di distanza spaziale da i punti di
+$\bZ^0$.
+
+Disponendo dei veri valori della variabile risposta, siamo in grado
+di confrontare questi con quelli previsti ottenuti con i $2$
+modelli. I risultati ottenuti sono rappresentati in figura 3.5, con
+la solita convenzione rosso per i valori reali, verde per OLS e blu
+per SAR.
+
+\begin{center}
+\begin{figure} [h] {\setlength{\fboxsep}{2mm}
+\fbox{\parbox{120mm}{%
+
+\placefig{fig_cap3/fig5}{11cm}
+
+}}
+ \caption{Proiezione delle previsioni su
+$X_1 \times Y$ e $X_4 \times Y$ ortogonalmente ai piani e
+parallelamente all'iperpiano OLS}
+ \label{fig3.5} }
+\end{figure}
+\end{center}
+
+
+Dai grafici sembra che le previsioni ottenute con SAR non siano
+buone.
+
+A questo punto andiamo a vedere se effettivamente le correlazioni
+che sono state supposte tra il nuovo campione e quello iniziale
+esistono, ovvero se i $2$ campioni sono vicini in termini di
+coordinate spaziali. In Figura 3.6 sono raffigurate le disposizioni
+spaziali del campione iniziale (in nero) e del secondo campione (in
+arancio).
+\newpage
+
+\begin{center}
+\begin{figure} [h] {\setlength{\fboxsep}{2mm}
+\fbox{\parbox{120mm}{%
+
+\placefig{fig_cap3/fig6}{7cm}
+
+}}
+ \caption{Distribuzione spaziale dei $2$ campioni}
+ \label{fig3.6} }
+\end{figure}
+\end{center}
+
+\`{E} evidente che i punti del secondo campione sono quasi tutti
+molto distanti dal primo, il che spiega perch\è le previsioni
+ottenute siano cos\ì scadenti. Ci sono per\ò $22$ punti del nuovo
+campione che cadono in prossimit\à del primo (Figura 3.7).
+
+\begin{center}
+\begin{figure} [h] {\setlength{\fboxsep}{2mm}
+\fbox{\parbox{120mm}{%
+
+\placefig{fig_cap3/fig7}{7cm}
+
+}}
+ \caption{Distribuzione spaziale dei $2$ campioni}
+ \label{fig3.7} }
+\end{figure}
+\end{center}
+
+Proviamo a vedere se per queste 22 osservazioni la SAR fallisce o
+fornisce delle stime migliori di OLS. In figura 3.8 sono riportati i
+valori stimati di $Y$ con i 2 modelli e quelli reali, sui vari piani
+descritti precedentemente.
+
+
+
+
+\begin{center}
+\begin{figure} [h] {\setlength{\fboxsep}{2mm}
+\fbox{\parbox{120mm}{%
+
+\placefig{fig_cap3/fig8}{11cm}
+
+}}
+ \caption{Proiezione delle previsioni ridotte su
+$X_1 \times Y$ e $X_4 \times Y$ ortogonalmente ai piani e
+parallelamente all'iperpiano OLS}
+ \label{fig3.8} }
+\end{figure}
+\end{center}
+
+Per questi 22 individui la SAR ottiene risultati di previsione molto
+soddisfacenti, migliori di OLS.
+
+Tutto ci\ò \è in perfetto accordo con il modello che prevede che ci
+sia correlazione solamente tra osservazioni vicine nello spazio.

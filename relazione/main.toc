@@ -1,0 +1,15 @@
+\select@language {italian}
+\contentsline {chapter}{\numberline {1}Introduzione}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Il modello di autoregressione simultanea SAR}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Regressione Lineare (OLS)}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Autoregressione spaziale}{5}{section.2.2}
+\contentsline {section}{\numberline {2.3}Autoregressione simultanea SAR}{6}{section.2.3}
+\contentsline {section}{\numberline {2.4}Matrice dei pesi $\mathbf {W}$}{7}{section.2.4}
+\contentsline {chapter}{\numberline {3}Esempio su data set reale}{9}{chapter.3}
+\contentsline {section}{\numberline {3.1}Data set reale}{9}{section.3.1}
+\contentsline {section}{\numberline {3.2}Coefficienti stimati per i 2 modelli}{10}{section.3.2}
+\contentsline {section}{\numberline {3.3}Rappresentazione grafica dei risultati}{10}{section.3.3}
+\contentsline {section}{\numberline {3.4}Previsioni}{14}{section.3.4}
+\contentsline {chapter}{\numberline {4}Conclusioni}{18}{chapter.4}
+\contentsline {chapter}{Appendice A}{}{appendix.A}
+\contentsline {chapter}{Riferimenti bibliografici}{X}{appendix*.3}

@@ -1,0 +1,303 @@
+\chapter{Il modello di autoregressione simultanea SAR}\label{cap2}
+
+
+Nel Par.~\ref{sect2.1} viene brevemente trattato il modello di
+regressione lineare classico (OLS) e i risultati ad esso correlati.
+Nel Par.~\ref{sect2.2} viene descritto il modello di autoregressione
+spaziale per una variabile risposta i cui valori sono tra loro
+autocorrelati. Quindi nel Par.~\ref{sect2.3} viene presentato il
+modello SAR (Simultaneous AutoRegression) per l'errore di
+regressione e la relativa funzione di massima verosomiglianza. Tale
+funzione dipende dalla matrice spaziale dei pesi $\bW$, la quale
+viene trattata nel Par.~\ref{sect2.4}.
+
+
+\section{Regressione Lineare (OLS)}\label{sect2.1}
+
+ Siano $X_1, X_2, \ldots  , X_r$ $r$ variabili
+(predittori) ritenute correlate con una variabile $Y$ (risposta).
+Allora il modello di regressione lineare assume la forma
+\[Y = \beta_0 + \beta_1 X_1 + \ldots+\beta_r X_r + \varepsilon \]
+
+Dove $\varepsilon$ \è l'errore di regressione ed \è una variabile
+aleatoria indipendente dai predittori e tale che $ \mathsf{E} (
+\varepsilon) = 0 $  e
+$ \mathsf{Var} ( \varepsilon ) = \sigma^2 $.\\
+
+ Date $n$ osservazioni indipendenti della variabile risposta e
+i corrispondenti valori dei predittori, il modello completo diventa
+\[ \bY = \bZ \bb +\beps \]
+
+\noindent
+dove\\
+$\bY \in \mathbb{R}^n $ vettore delle realizzazioni di $Y$ \\
+$\bZ=
+[\mathbb{I}_{n\times1}|\mathbf{X_1}|\ldots|\mathbf{X_r}] \in \mathbb{R}^{n\times(r+1)}$ matrice disegno \\
+$\mathbf{X_i} \in \mathbb{R}^n $ vettore delle realizzazioni di $X_i$ \\
+$\beps \in \mathbb{R}^n$ vettore degli errori tale che $ \mathsf{E}
+( \beps ) = \mathbf{0} $  e
+$ \mathsf{Cov} ( \beps ) = \sigma^2 \mathbb{I}_n$\\
+
+$\bb$ e $\sigma^2$ sono i parametri del modello OLS. Con il metodo
+dei minimi \linebreak
+ quadrati si ottiene una stima di $\bb$ minimizzando
+lo scarto quadratico medio $S(\mathbf{b})=
+(\bY-\bZ\bb)'(\bY-\bZ\bb)$:
+
+\[\bhb = \mathsf{argmin}_{\mathbf{b}\in\mathbb
+R^{r+1}}S(\mathbf{b})\]
+
+
+In seguito vengono riportati alcuni risultati noti sulla regressione
+lineare (si omettono le dimostrazioni).\\
+
+\textbf{Teorema 1:} \textit{ Sia $\bZ$ di rango pieno $r+1\leq n$, allora:}\\
+\begin{itemize}
+\item[ ]$\bhb = (\bZ'\bZ)^{-1}\bZ'\bY$
+\item[ ]$\bhY=\bZ\bhb$
+\item[ ]$\bheps=\bY-\bhY$\\
+\end{itemize}
+
+\textbf{Teorema 2:} \textit{ Sia $\bZ$ di rango pieno $r+1\leq n$, allora:}\\
+\begin{itemize}
+\item[ ]$ \mathsf{E} ( \bhb ) = \bb$
+\item[ ]$\mathsf{Cov}(\bhb) =\sigma^2(\bZ'\bZ)ì{-1}$
+\item[ ]$ \mathsf{E} ( \bheps ) = \mathbf{0}$
+\item[ ]$\mathsf{Cov} (\bheps)
+=\sigma^2(\mathbb{I}_n-\mathbf{H})$ dove
+$\mathbf{H}=\bZ(\bZ'\bZ)^{-1}\bZ'$
+\item[ ]$\mathsf{E}(\bheps'\bheps)= \sigma^2(n-r-1))$\\
+\end{itemize}
+
+
+Si definisce indice di determinazione:
+$$ R^2 =
+1-\frac{\bheps'\bheps}{\sum_{i=1}^n(y_i-\bar{y})^2} $$  $R^2$ \è un
+indice di quanto il modello spieghi adeguatamente i
+dati.\\
+
+\textbf{Corollario 1:}\\
+$$S^2 =
+\frac{\bheps'\bheps}{n-(r+1)}$$
+\è uno stimatore non distorto di $\sigma^2$.\\
+
+\textbf{Teorema 3:} \textit{ Sia $\mathrm{rank}(\bZ) = r+1 \leq n$
+ed inoltre
+ $\beps \sim \emph{N}_n(\mathbf{0},\sigma^2\mathbb{I}_{n} )$, allora:}\\
+ \begin{itemize}
+\item[ ] $\bhb$ e $\hat\sigma^2 = \bheps'\bheps/n$ sono stimatori di
+massima verosomiglianza per $\bb$ e $\sigma^2$
+\item[ ]$\bhb \sim
+\emph{N}_{r+1}(\bb,\sigma^2(\bZ'\bZ)^{-1})$
+\item[ ] $\bheps\sim
+\emph{N}_n(\mathbf{0},\sigma^2(\mathbb{I}_n-\mathbf{H}))$
+\item[ ] $\bheps$ e $\bhb$ sono tra loro ortogonali
+\item[ ] $\hat\sigma^2 \sim \sigma^2 \chi(n-r-1)$\\
+ \end{itemize}
+
+
+\textbf{Corollario 2:} \\
+$$\frac{(\bhb-\bb)'(\bZ'\bZ)(\bhb-\bb)}{S^2} \sim
+(r+1)F(r+1,n-r-1)$$
+
+\newpage
+Da un punto di vista geometrico, i valori fittati trovati con OLS
+$$\hat{Y}_i = \hat\beta_0+\hat\beta_1 X_1+\ldots+\hat\beta_r X_r$$
+giacciono sull'iperpiano di $\mathbb{R}^{r+2}$ generato dalle
+colonne di $\bZ$.
+
+\section{Autoregressione spaziale}\label{sect2.2}
+
+Quando i valori assunti $\bY = (y_1, y_2,\ldots, y_n)'$ da una
+variabile $Y$ sono in alcuni punti fortemente correlati ai valori
+che li precedono e seguono (autocorrelazione spaziale), $$y_t = f
+(y_{t-1}, y_{t-2},\ldots, y_{t-p}, e_t ), \;\;\;\; \forall \;\; p +
+1 \leq t \leq n$$ si adotta un modello di autoregressione spaziale,
+che pu\ò essere espresso come:
+$$y_t = \beta_0 +\sum_{i=1}^{p}  \beta_i y_{t-i} + e_t , \;\;\;\;
+\forall \;\; p + 1 \leq
+t \leq n$$ dove:\\
+$\beta_i$ sono i coeffcienti di autoregressione \\
+$p \in \{1,\ldots,n$\} \`{e} l'ordine di autoregressione\\
+$e_t$ \è il $t$-esimo errore.\\
+
+Ponendo\\
+$\widetilde{\bY} = (y_{p+1},y_{p+2},\ldots,y_p)'$\\
+$\bb = (\beta_0,\beta_1,\ldots,\beta_p)'$\\
+$\be= (e_{p+1},e_{p+2},\dots,e_n)' $\\
+$ { \mathbf{X}} = \left(
+\begin{array}{ccccc}
+ 1      & y_{p}   & y_{p-1} & \ldots &  y_1 \\
+ 1      & y_{p+1} & y_{p}   & \ldots &  y_2 \\
+ \vdots & \vdots  & \vdots  &        &\vdots\\
+ 1      & y_{n-1} & y_{n-2} & \ldots &y_{n-p} \\
+\end{array}
+\right)\\ $
+ il modello pu\`{o} essere espresso come per la regressione lineare
+ nella forma
+$$ \widetilde{\bY} = \mathbf{X}\bb + \be\\$$
+ove evidentemente la matrice disegno $\mathbf{X}$ ha un significato
+completamente diverso, poich\é in questo caso non ci sono
+regressori, l'unica variabile \è $Y$, e i valori che assume su ogni
+osservazione dipendono solo dai valori che la stessa assume sulle
+altre osservazioni.
+
+Per mettere in evidenza proprio la dipendenza del vettore $\bY$ solo
+da se stesso, una forma pi\ù generale del modello \è:
+
+$$\bY = \lambda \mathbf{W}\bY + \mathbf{e}\\$$
+dove $0 \leq \lambda < 1$ \è un parametro di autoregressione
+spaziale e $\bW = w_{ij}$ \è una matrice di pesi
+che soddisfa la condizione di non auto-predittibilit\à:\\
+$$w_{ii}=0 \;\;\; \forall i \in\{1,\ldots,n\}$$
+e di normalizzazione per righe:
+$$\sum_{j=1}^{n}w_{ij} = 1\;\;\; \forall i \in\{1,\ldots,n\}\\$$
+
+
+
+
+\section{Autoregressione simultanea SAR}\label{sect2.3}
+Quando si trattano osservazioni distribuite spazialmente, se si
+sceglie di utilizzare un modello di regressione lineare del tipo
+$$\bY = \bZ\bb +\beps$$ si rischia di perdere gran parte del potere
+predittivo del modello stesso poich\é si ignora la
+correlazione spaziale dei dati.\\
+ In particolare in questi casi l'errore di regressione
+$\varepsilon$ \è spazialmente autocorrelato, quindi viene violata
+l'ipotesi fondamentale di indipendenza tra gli errori sulle varie osservazioni. \\
+
+Si pu\ò pensare allora di adottare per $\varepsilon$ il modello di
+autoregressione spaziale:
+$$ \beps = \lambda \bW\beps + \be$$
+e di sostituirlo nell'espressione della regressione lineare, si
+ottiene cos\ì il modello di autoregressione simultanea (SAR):
+\begin{eqnarray*}
+\bY &=& \bZ\bb + \lambda \bW \beps + \be\\
+    &=& \bZ\bb +\lambda\bW(\bY-\bZ\bb) +\be
+\end{eqnarray*}
+In pratica SAR corregge la forma classica di regressione aggiungendo
+una media pesata delle deviazioni $\bY - \bZ\bb$ sulle
+osservazioni vicine.\\
+\begin{itemize}
+\item[*] La matrice dei pesi $\bW$ gode delle propriet\à descritte al Par.
+\ref{sect2.2}:
+
+$$w_{ii}=0, \;\;\; \forall i \in\{1,\ldots,n\}$$
+$$\sum_{j=1}^{n}w_{ij} = 1\;\;\; \forall i \in\{1,\ldots,n\}\\$$
+Un valore non nullo del generico $w_{ij}$ significa che la $j$-esima
+osservazione verr\à usata per correggere la previsione
+sull'$i$-esimo individuo, ci\ò equivale a ritenere che gli errori
+sulle $2$ osservazioni $i$ e $j$ siano correlati. Poich\é si stanno
+trattando individui spazialmente correlati, i valori non nulli di
+$\bW$
+si trovano in corrispondenza di individui tra loro vicini nello spazio.\\
+
+\item[*] $\lambda$ \è il parametro di autoregressione dell'errore e deve
+essere tale che
+$$ 0 \leq \lambda < 1$$
+
+\item[*]Infine deve risultare
+$$ \be \sim  \emph{N}_n(\mathbf{0},\sigma^2 \mathbb{I}_n)$$\\
+
+\end{itemize}
+
+ $\lambda, \sigma^2$ e $\bb$ sono i parametri del modello SAR e
+vengono stimati massimizzando il logaritmo della funzione di massima
+verosomiglianza:
+
+$$L(\lambda,\sigma^2,\bb)= \frac{1}{2}\ln|\bB| -\frac{1}{2}[n\ln(2\pi\sigma^2) +
+\sigma^{-2}(\bY-\bZ\bb)'\bB(\bY-\bZ\bb)]$$
+dove $\bB = (\mathbb{I}_n-\lambda\bW)'(\mathbb{I}_n-\lambda\bW)$.\\
+Affinch\é la somma degli scarti quadratici dell'errore,
+$(\bY-\bZ\bb)'\bB(\bY-\bZ\bb)$ sia strettamente positiva, \è
+necessario che $\bB $ sia definita positiva. Per definizione di
+$\bW$ ed essendo $0 \leq \lambda <1$, risulta $0<| \bB| \leq 1$, e
+quindi $-\infty<\ln|\bB|\leq 0$.
+
+Supposta l'esistenza degli stimatori di massima verosomiglianza
+$\check{\lambda}, \check{\sigma}^2$ e $\cb$, \è allora possibile
+predire $\bY$ tramite
+$$ \cY = \bZ\cb + \check{\lambda}
+\bW(\bY-\bZ\cb)$$ e stimare l'errore
+$$\ce=\bY-\cY$$
+
+Purtroppo non si riesce ad ottenere alcuna forma analitica a priori
+dei coefficienti o dei valori fittati, n\é delle loro distribuzioni,
+pertanto non \è possibile svolgere test statistici o valutare
+intervalli di confidenza per i parametri stimati (che invece \è
+possibile per la regressione lineare se l'errore ha distribuzione
+normale). Possiamo solo utilizzare i coefficienti stimati per fare
+previsione su nuovi campioni.
+
+
+\section{Matrice dei pesi $\bW$}\label{sect2.4}
+
+ Per ogni individuo del campione, sono noti i
+valori della variabile risposta $Y$, dei predittori $X_1,\ldots,X_r$
+e le coordinate spaziali in termini di latitudine e longitudine,
+tramite le quali \è possibile costruire la matrice dei pesi $\bW$.
+Le componenti di $\bW$ sono infatti funzione della vicinanza
+spaziale tra i vari individui.
+
+
+Sia $d_{ij} =
+\sqrt{{[(\mbox{latitudine})_i-(\mbox{latitudine})_j]}^2+{[(\mbox{longitudine})_i-(\mbox{longitudine})_j]}^2}$
+la distanza Euclidea tra ogni coppia di individui $i $ e $j$, sia
+inoltre $d_{max\,i}$ la distanza tra l'osservazione $i$ e il suo
+$m$-esimo punto pi\ù vicino. Si pone allora\\
+\begin{eqnarray*}
+ \widetilde{w}_{ij} &=&1 \mbox{ se } d_{ij} \leq d_{max\,i}\\
+ \widetilde{w}_{ij}&=&0 \mbox{ altrimenti.}\\
+ \end{eqnarray*}
+
+
+ $\widetilde{\mathbf{W}}=(\widetilde{w}_{ij})$ non \è ancora la matrice dei pesi poich\é deve
+ essere normalizzata per righe, e deve avere valori nulli sulla diagonale, quindi:\\
+ \begin{eqnarray*}
+ w_{ij} &=& \frac{\widetilde{w}_{ij}}{\sum_{j=1,\,i\neq j}^{n}\widetilde{w}_{ij}}\\
+ w_{ii} &=& 0 \;\;\; \forall i \in\{1,\ldots,n\}\\
+\end{eqnarray*}
+
+In questo modo per ogni previsione $\check{Y}_i$, le $m$
+osservazioni pi\ù vicine ad essa (eccetto lei stessa) hanno un peso
+pari a $\frac{\check\lambda}{m}$ nella sua valutazione, mentre le
+altre non contano, ovvero:
+$$ \check{Y}_i = \check\beta_0 + \check\beta_1 x_{i1} + \ldots + \check\beta_r
+x_{ir} +
+\frac{\check\lambda}{m}\sum_{k=1}^{m}(Y_k^{*}-\check\beta_0-
+\check\beta_1 x_{k1}^{*} - \ldots - \check\beta_r x_{kr}^{*})$$\\
+dove $^{*}$ indica che l'individuo $k$ \è uno degli $m$ del campione
+pi\ù vicini all'osservazione $i$ in termini di distanza spaziale.\\
+
+Se si sceglie $m=n$ la matrice $\bW $ \è piena, e questo significa
+che esistono $n^2$ potenziali correlazioni. Poich\è per stimare i
+parametri della SAR \è necessario valutare il determinante di tale
+matrice, sono necessarie $n^3$ operazioni, quindi il costo
+computazionale diventa veramente molto alto se il numero di
+osservazioni \è elevato.
+
+Fortunatamente l'autocorrelazione spaziale degli errori di norma va
+diminuendo all'aumentare della distanza, ecco perch\è si sceglie di
+troncare l'influenza delle osservazioni ai soli $m$ punti pi\ù
+vicini, con $m$ non molto elevato. Scegliere $m$ piccolo \è quindi
+in accordo con il modello teorico, ed inoltre fa si che la matrice
+dei pesi non sia piena ma abbia solo un numero ridotto di elementi
+non nulli.
+
+Da un punto di vista numerico \è conveniente usare un matrice in
+forma sparsa, con questa tecnica vengono memorizzati solo gli
+elementi non nulli della matrice e si evita di calcolare ogni volta
+un'operazione con un elemento nullo. In questo modo diminuisce lo
+spazio di memoria necessario al calcolatore e si accelerano i tempi
+computazionali.
+
+Non entriamo nei dettagli computazionali, ci limitiamo a dire che il
+modello SAR \è implementato nella \textit{spdep} libreria del
+software R da noi utilizzato per svolgere l'analisi, richiede che
+vengano fornite le informazioni: valori assunti dalla variabile
+risposta e dai predittori sulle osservazioni, matrice $\bW$ in forma
+sparsa. Anche per la costruzione di $\bW$ si pu\ò far riferimento
+alla stessa libreria, basta fornire una matrice contenente
+latitudine e longitudine delle varie osservazioni e il valore $m$ di
+vicini influenti, per maggiori chiarimenti il codice \è riportato in
+Appendice A.

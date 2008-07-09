@@ -1,0 +1,54 @@
+\chapter{Introduzione}\label{cap1}
+
+La regressione lineare \è forse una delle tecniche pi\ù utilizzate
+in ambito statistico. Quando si trattano osservazioni distribuite
+spazialmente, se si sceglie di utilizzare un modello di regressione
+lineare, si rischia di perdere gran parte del potere predittivo del
+modello stesso poich\é si ignora la correlazione spaziale dei dati.
+In particolare, l'errore di regressione $\varepsilon$ \è
+spazialmente autocorrelato, quindi non \è verificata l'ipotesi
+fondamentale del modello di indipendenza tra
+gli errori sulle varie osservazioni del campione.\\
+
+Un'alternativa alla regressione lineare \è il modello di
+autoregressione simultanea (SAR). In questo modello per l'errore di
+regressione viene adottato un sotto modello di autocorrelazione
+spaziale, che permette di tenere conto del fatto che osservazioni
+vicine nello spazio sono tra loro correlate. In questo modo SAR
+risulta essere molto pi\ù efficace della regressione lineare non
+solo nel rappresentare il campione su cui si \è costruita l'analisi,
+ma anche nella previsione su osservazioni future.
+
+
+Purtroppo questa tecnica necessita la conoscenza di tutte le
+relazioni tra le varie osservazioni del campione, che \è
+rappresentabile con una matrice delle distanze tra i punti di
+dimensione $n\times n$, dove $n$ \è il numero di osservazioni a
+disposizione. La stima dei parametri del modello richiede il calcolo
+del determinante di tale matrice, ovvero la risoluzione di $n^3$
+operazioni, che per un campione numeroso risulta essere un costo
+computazionale molto elevato.
+
+Fortunatamente, la correlazione spaziale di norma va diminuendo con
+l'aumentare della distanza spaziale tra i punti. Se si sceglie di
+fissare un numero limite $m$ di osservazioni influenti per ogni
+individuo e di annullare l'effetto quindi delle $n-m$ osservazioni
+pi\ù lontane, il numero di relazioni necessarie per la stima dei
+parametri diminuisce notevolmente (elementi non nulli della matrice
+delle distanze). Allora diminuisce il costo computazionale e si
+accelerano i tempi di calcolo.\\
+Anche se il numero di elementi non nulli della matrice delle
+distanze \è sceso a $n\times m$, per campioni numerosi il metodo
+richiede comunque un costo elevato.\\
+
+Nel capitolo \ref{cap2} dopo una breve trattazione dei concetti
+fondamentali della regressione lineare, viene descritto il modello
+di autocorrelazione spaziale che verr\à applicato all'errore, e il
+modello definitivo di autoregressione simultanea (SAR).
+
+Nel capitolo \ref{cap3} viene riportata l'applicazione del modello
+ad un caso reale ed il relativo confronto con i risultati della
+regressione lineare.
+
+Infine nel capitolo \ref{cap4} sono illustrate le conclusioni
+ottenute dall'applicazione del modello SAR.
